@@ -1,6 +1,11 @@
 package org.springframework.social.tumblr.api.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.social.tumblr.api.BlogPostsOperations;
+import org.springframework.social.tumblr.api.Post;
 import org.springframework.social.tumblr.api.Posts;
 import org.springframework.social.tumblr.api.PostsQuery;
 import org.springframework.social.tumblr.api.PostsQueryFilter;
@@ -11,6 +16,16 @@ import org.springframework.web.client.RestTemplate;
 public class BlogPostsTemplate extends AbstractBlogOperations implements BlogPostsOperations {
     public BlogPostsTemplate(RestTemplate restTemplate, boolean isAuthorized, String apiKey, String blogHostname) {
         super(restTemplate, isAuthorized, apiKey, blogHostname);
+    }
+
+    public List<Post> getPosts() {
+    	requireApiKey();
+        
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("api_key", getApiKey());
+        
+        Map<String, Object> response = getRestTemplate().getForObject(buildUri("posts", "api_key", getApiKey()).toString(), Map.class);
+        return (List<Post>)response.get("posts");
     }
 
     public Posts search(PostsQuery query) {

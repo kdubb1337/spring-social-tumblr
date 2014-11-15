@@ -1,6 +1,19 @@
 package org.springframework.social.tumblr.api.impl;
 
-import org.springframework.social.tumblr.api.*;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.social.tumblr.api.BlogPostOperations;
+import org.springframework.social.tumblr.api.ModifyAudioPost;
+import org.springframework.social.tumblr.api.ModifyChatPost;
+import org.springframework.social.tumblr.api.ModifyLinkPost;
+import org.springframework.social.tumblr.api.ModifyPhotoPost;
+import org.springframework.social.tumblr.api.ModifyPost;
+import org.springframework.social.tumblr.api.ModifyQuotePost;
+import org.springframework.social.tumblr.api.ModifyTextPost;
+import org.springframework.social.tumblr.api.ModifyVideoPost;
+import org.springframework.social.tumblr.api.Post;
+import org.springframework.social.tumblr.api.ReblogPost;
 import org.springframework.social.tumblr.api.impl.json.TumblrResponse;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -10,7 +23,7 @@ public class BlogPostTemplate extends AbstractBlogOperations implements BlogPost
     public BlogPostTemplate(RestTemplate restTemplate, boolean isAuthorized, String apiKey, String blogHostname) {
         super(restTemplate, isAuthorized, apiKey, blogHostname);
     }
-
+    
     public void create(ModifyPost post) {
         if (post == null) {
             throw new IllegalArgumentException("post must not be null");

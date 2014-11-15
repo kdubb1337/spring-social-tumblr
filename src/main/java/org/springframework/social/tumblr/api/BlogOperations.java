@@ -1,5 +1,7 @@
 package org.springframework.social.tumblr.api;
 
+import java.util.List;
+
 public interface BlogOperations {
 
     BlogInfo info();
