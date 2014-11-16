@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.social.tumblr.api.BlogInfoWPosts;
 import org.springframework.social.tumblr.api.BlogPostsOperations;
 import org.springframework.social.tumblr.api.Post;
 import org.springframework.social.tumblr.api.Posts;
@@ -20,12 +21,12 @@ public class BlogPostsTemplate extends AbstractBlogOperations implements BlogPos
 
     public List<Post> getPosts() {
     	requireApiKey();
-        
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("api_key", getApiKey());
-        
-        Map<String, Object> response = getRestTemplate().getForObject(buildUri("posts", "api_key", getApiKey()).toString(), Map.class);
-        return (List<Post>)response.get("posts");
+
+        BlogInfoWPosts blogInfo = getRestTemplate().getForObject(buildUri("posts", "api_key", getApiKey()).toString(), BlogInfoWPosts.class);
+        return blogInfo.getPosts();
     }
 
     public Posts search(PostsQuery query) {
